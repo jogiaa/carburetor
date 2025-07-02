@@ -26,7 +26,7 @@ Extract the provided code in a folder.The directory structure should be
 Run the following command within the folder to setup the python ‘virtual environment’.
 ```commandline
 python3 -m venv venv
-
+```
 
 From the same folder run the following command to activate the virtual environment.
 ```commandline
