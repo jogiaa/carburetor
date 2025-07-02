@@ -35,5 +35,5 @@ source venv/bin/activate
 
 Run the following command to install the required libraries with the specific versions.
 ```commandline
-python -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
