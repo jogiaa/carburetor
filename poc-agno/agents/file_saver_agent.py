@@ -2,15 +2,12 @@ import logging
 from pathlib import Path
 
 from agno.agent import Agent
-from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.file import FileTools
-from agno.utils.log import AgnoLogger, LOGGER_NAME
+from agno.utils.log import LOGGER_NAME
 from pydantic import BaseModel
 
 from agents.web_search_ddg_agent import web_agent
 from llm_model_config import llm_model
-import asyncio
-from rich.logging import RichHandler
 
 logging.getLogger(LOGGER_NAME).setLevel(logging.DEBUG)
 
