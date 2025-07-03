@@ -1,15 +1,22 @@
 from agno.team import Team
+from pydantic import BaseModel
 
 from agents.simplest_match_agent import math_agent
 from agents.web_search_ddg_agent import web_agent
 from llm_model_config import llm_model
 
+
+class CarbData(BaseModel):
+    dish: str
+    carbs: float
+
+
 agent_team = Team(
     mode="coordinate",
     members=[web_agent, math_agent],
     model=llm_model,
-    description="I search for recipes and estimate their calorie content.",
-    success_criteria="Find the calorie count using web search and calculations.",
+    description="I search for recipes and estimate their carbs content.",
+    success_criteria="Find the carbs count using web search and calculations.",
     instructions=[
         "Search web for 5 recipes of the dish",
         "Extract common ingredients from the recipes",
@@ -21,8 +28,11 @@ agent_team = Team(
         "Provide a clear and concise answer with sources",
         "If the recipe is not found, provide a general estimate based on common ingredients"
     ],
+    response_model=CarbData,
     show_tool_calls=True,
     markdown=True,
+    reasoning=True,
+    # debug_mode=True,
 )
 
 if __name__ == "__main__":
