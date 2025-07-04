@@ -1,7 +1,7 @@
 from agno.team import Team
 from pydantic import BaseModel
 
-from poc_agno.agents.simplest_match_agent import math_agent
+from poc_agno.agents.simplest_math_agent import math_agent
 from poc_agno.agents.web_search_ddg_agent import web_agent
 from poc_agno.llm_model_config import llm_model
 

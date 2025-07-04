@@ -1,17 +1,21 @@
 from textwrap import dedent
 
-from agno.debug import enable_debug_mode
+from pydantic import BaseModel
 
-from poc_agno.llm_model_config import llm_model
+from poc_agno.llm_model_config import llm_model, code_model
 from agno.agent import Agent
 
-enable_debug_mode()
+
+class DocumentedResult(BaseModel):
+    original_code: str
+    modified_code: str
+
 
 # Single-agent system that adds doc comments to code snippets
 code_doc_agent = Agent(
     name="Code Documentation Agent",
     role="Add documentation comments to functions, methods, or classes",
-    model=llm_model,
+    model=code_model,
     instructions="""
     You are a code documentation assistant. Given a code snippet (in any language),
     identify the language and annotate it with appropriate documentation comments.
@@ -23,15 +27,14 @@ code_doc_agent = Agent(
     - If its Python code then use Python conventions to be used with Sphinx
     Only add comments where needed (before function, class, params).
     Never change the actual code logic.
-    Output only the modified code with comments included.
     """,
+    response_model=DocumentedResult,
     show_tool_calls=False,
-    markdown=False,
+    markdown=True,
 )
 
-
 if __name__ == "__main__":
-    code_doc_agent.print_response(f"Add comments to {dedent("""
+    response = code_doc_agent.run(f"Add comments to {dedent("""
     from agno.tools.calculator import CalculatorTools
 from agno.agent import Agent
 
@@ -50,3 +53,4 @@ math_agent = Agent(
 
     
     """)} ")
+    print(response.content.modified_code)

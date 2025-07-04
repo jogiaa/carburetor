@@ -1,12 +1,17 @@
+from agno.debug import enable_debug_mode
 from agno.models.ollama import Ollama
 
-model_llama3 = "llama3.2"
-model_llama4 = "llama4"
-model_gemma327 = "gemma3:27b"
-model_gemma31 = "gemma3:1b"
+MODEL_NAME_LLAMA_3 = "llama3.2"
+MODEL_NAME_GEMMA_3_1B = "gemma3:1b"
 
+MODEL_NAME_CODE_LLAMA_7b = "codellama:7b"
 
-llm_model=Ollama(id=model_llama3)
+MODEL_NAME_DEEPSEEK_R_1_8B ="deepseek-r1:8b"
+enable_debug_mode()
+
+llm_model = Ollama(id=MODEL_NAME_LLAMA_3)
+
+code_model = Ollama(id=MODEL_NAME_CODE_LLAMA_7b)
 
 
 # API-KEY - gpt-4o-mini
