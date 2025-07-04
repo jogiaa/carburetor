@@ -1,12 +1,10 @@
 from agno.debug import enable_debug_mode
-from agno.utils.log import set_log_level_to_debug
 
-from agents.code_documenter import code_doc_agent
 import logging
 import sys
 import argparse
 
-from agents.scribe_team import scribe_team
+from poc_agno.teams.scribe_team import scribe_team
 
 _LOGGER = logging.getLogger(__name__)
 
