@@ -2,7 +2,7 @@ from textwrap import dedent
 
 from agno.debug import enable_debug_mode
 
-from llm_model_config import llm_model
+from poc_agno.llm_model_config import llm_model
 from agno.agent import Agent
 
 enable_debug_mode()

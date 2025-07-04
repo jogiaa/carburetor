@@ -6,8 +6,7 @@ from agno.tools.file import FileTools
 from agno.utils.log import LOGGER_NAME
 from pydantic import BaseModel
 
-from agents.web_search_ddg_agent import web_agent
-from llm_model_config import llm_model
+from poc_agno.llm_model_config import llm_model
 
 logging.getLogger(LOGGER_NAME).setLevel(logging.DEBUG)
 

@@ -1,9 +1,9 @@
 from agno.team import Team
 from pydantic import BaseModel
 
-from agents.simplest_match_agent import math_agent
-from agents.web_search_ddg_agent import web_agent
-from llm_model_config import llm_model
+from poc_agno.agents.simplest_match_agent import math_agent
+from poc_agno.agents.web_search_ddg_agent import web_agent
+from poc_agno.llm_model_config import llm_model
 
 
 class CarbData(BaseModel):

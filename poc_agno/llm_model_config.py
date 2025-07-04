@@ -6,7 +6,7 @@ model_gemma327 = "gemma3:27b"
 model_gemma31 = "gemma3:1b"
 
 
-llm_model=Ollama(id=model_gemma31)
+llm_model=Ollama(id=model_llama3)
 
 
 # API-KEY - gpt-4o-mini

@@ -1,7 +1,7 @@
 from agno.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-from llm_model_config import llm_model
+from poc_agno.llm_model_config import llm_model
 
 web_agent = Agent(
     name="Web Agent",

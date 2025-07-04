@@ -1,7 +1,7 @@
 from agno.tools.calculator import CalculatorTools
 from agno.agent import Agent
 
-from llm_model_config import llm_model
+from poc_agno.llm_model_config import llm_model
 
 math_agent = Agent(
     name="Math Agent",

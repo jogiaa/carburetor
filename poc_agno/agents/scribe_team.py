@@ -1,9 +1,8 @@
 from agno.team import Team
 
-from agents.code_documenter import code_doc_agent
-from agents.file_saver_agent import file_agent, path
-from agents.web_search_ddg_agent import web_agent
-from llm_model_config import llm_model
+from poc_agno.agents.code_documenter import code_doc_agent
+from poc_agno.agents.web_search_ddg_agent import web_agent
+from poc_agno.llm_model_config import llm_model
 
 scribe_team = Team(
     name="Code Documenter Team",
