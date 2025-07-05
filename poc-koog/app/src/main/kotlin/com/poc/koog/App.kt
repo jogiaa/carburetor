@@ -10,8 +10,8 @@ import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
     val agent = AIAgent(
-        executor = simpleOllamaAIExecutor(), // configure with correct port
-        llmModel = OllamaModels.Groq.LLAMA_3_GROK_TOOL_USE_8B, // configure to use base-model
+        executor = simpleOllamaAIExecutor(), // defaults to port 11434
+        llmModel = OllamaModels.Meta.LLAMA_3_2,
         systemPrompt = """
             You are a helpful assistant. Answer user questions concisely.
         """.trimIndent()
