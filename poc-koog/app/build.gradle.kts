@@ -16,6 +16,7 @@ plugins {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    // Koog artifacts are hosted in the following URL.
     maven {
         url = uri("https://packages.jetbrains.team/maven/p/grazi/grazie-platform-public")
     }
@@ -31,7 +32,6 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // This dependency is used by the application.
-    implementation(libs.guava)
     implementation("ai.koog:koog-agents:0.2.1")
 }
 
