@@ -4,17 +4,34 @@
 package com.poc.koog
 
 import ai.koog.agents.core.agent.AIAgent
+import ai.koog.agents.core.agent.config.AIAgentConfig
+import ai.koog.agents.core.tools.ToolRegistry
+import ai.koog.agents.ext.agent.chatAgentStrategy
+import ai.koog.agents.ext.tool.AskUser
+import ai.koog.agents.ext.tool.SayToUser
+import ai.koog.prompt.dsl.prompt
 import ai.koog.prompt.executor.llms.all.simpleOllamaAIExecutor
 import ai.koog.prompt.llm.OllamaModels
+import ai.koog.prompt.params.LLMParams
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
+    val toolRegistry = ToolRegistry {
+        tool(SayToUser) // prints out progress to user
+        tool(AskUser) // prompts user for dynamic input
+    }
+    val agentConfig = AIAgentConfig(
+        prompt = prompt(id = "setup-prompt", params = LLMParams(temperature = 1.0)) {
+            system(SYSTEM_PROMPT)
+        },
+        model = OllamaModels.Meta.LLAMA_3_2,
+        maxAgentIterations = 50,
+    )
     val agent = AIAgent(
-        executor = simpleOllamaAIExecutor(), // defaults to port 11434
-        llmModel = OllamaModels.Meta.LLAMA_3_2,
-        systemPrompt = """
-            You are a helpful assistant. Answer user questions concisely.
-        """.trimIndent()
+        promptExecutor = simpleOllamaAIExecutor(), // defaults to port 11434
+        agentConfig = agentConfig,
+        strategy = chatAgentStrategy(),
+        toolRegistry = toolRegistry,
     )
     val result = agent.runAndGetResult("Hello! how can you help me?")
     println("Agent Response: $result")
