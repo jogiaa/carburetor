@@ -16,6 +16,6 @@ fun main() = runBlocking {
             You are a helpful assistant. Answer user questions concisely.
         """.trimIndent()
     )
-
-    agent.run("Hello! this is my user query.")
+    val result = agent.runAndGetResult("Hello! how can you help me?")
+    println("Agent Response: $result")
 }
