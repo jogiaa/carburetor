@@ -13,7 +13,7 @@ class FileProcessingWorkflow(Workflow):
         """
         Execute the three-agent workflow:
         1. File Reader → reads the source file
-        2. Content Capitalizer → capitalizes the content
+        2. Add documentation to the code
         3. File Saver → saves to destination path
         """
         logger.info(f"Starting file processing workflow")
@@ -33,14 +33,6 @@ class FileProcessingWorkflow(Workflow):
 
         # Step 2: Capitalize the content
         logger.info("Step 2: Adding comments...")
-        capitalize_input = f"""
-        Please add comments.
-
-        Original content:
-        {org_file_content}
-
-        Return the documented version along with processing metadata.
-        """
 
         comment_response = code_doc_agent.run(org_file_content)
 
