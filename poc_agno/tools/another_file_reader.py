@@ -97,8 +97,8 @@ class AnotherFileProcessor:
 
 
 def main():
-    source = "/Users/asim/Documents/DEV/koin/examples/coffee-maker/src/main/kotlin/org/koin/example/CoffeeApp.kt"
-    destination = "/Users/asim/Documents/DEV/koin/examples/coffee-maker/src/main/kotlin/org/koin/example/CoffeeApp2.kt"
+    source = "koin/examples/coffee-maker/src/main/kotlin/org/koin/example"
+    destination = "koin/examples/coffee-maker-two/src/main/kotlin/org/koin/example"
 
     processor = AnotherFileProcessor(
         source_str=source,

@@ -1,5 +1,6 @@
+from pprint import pprint
+
 from agno.run.response import RunResponse
-from agno.tools.file import FileTools
 from agno.utils.log import logger
 from agno.workflow import Workflow
 
@@ -99,9 +100,9 @@ if __name__ == "__main__":
     workflow = FileProcessingWorkflow()
 
     # Example file paths
-    source = "/Users/asim/Documents/DEV/koin/examples/coffee-maker/src/main/kotlin/org/koin/example/ElectricHeater.kt"
-    destination = "/Users/asim/Documents/DEV/koin/examples/coffee-maker/src/main/kotlin/org/koin/example/ElectricHeater_.kt"
+    source = "koin/examples/coffee-maker/src/main/kotlin/org/koin/example"
+    destination = "koin/examples/coffee-maker-two/src/main/kotlin/org/koin/example"
 
     # Run the workflow
     result = workflow.run(source_file_path=source, destination_file_path=destination)
-    print(result.content)
+    pprint(result.content)
