@@ -30,11 +30,10 @@ class FileProcessingWorkflow(Workflow):
         files_without_comments = []
         files_with_errors = []
 
-
         logger.info(f"Starting file processing workflow")
         logger.info(f"Source: {source_file_path}")
         logger.info(f"Destination: {destination_file_path}")
-        file_processor = AnotherFileProcessor(source_str = source_file_path , dest_str = destination_file_path)
+        file_processor = AnotherFileProcessor(source_str=source_file_path, dest_str=destination_file_path)
         # Step 1: Read the file
         logger.info("Step 1: Reading source file...")
 
@@ -66,14 +65,14 @@ class FileProcessingWorkflow(Workflow):
             # Step 3: Save the capitalized content
             logger.info("Step 3: Saving to destination file...")
 
-            save_file_details =  FileDetails(
-                path = streamed_file.path,
-                size = streamed_file.size,
-                content = comment_result.modified_code)
+            save_file_details = FileDetails(
+                path=streamed_file.path,
+                size=streamed_file.size,
+                content=comment_result.modified_code)
 
             save_response = file_processor.save_file(save_file_details)
 
-            if not isinstance(save_response, FileResult) :
+            if not isinstance(save_response, FileResult):
                 files_with_errors.append(save_response)
                 continue
             logger.info(f"✅ File saved successfully to {save_response}")
@@ -93,7 +92,6 @@ class FileProcessingWorkflow(Workflow):
                 }
             }
         )
-
 
 
 if __name__ == "__main__":
