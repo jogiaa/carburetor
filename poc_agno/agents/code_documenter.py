@@ -16,41 +16,52 @@ code_doc_agent = Agent(
     name="Code Documentation Agent",
     role="Add documentation comments to functions, methods, or classes",
     model=code_model,
-    instructions="""
-    You are a code documentation assistant. Given a code snippet (in any language),
-    identify the language and annotate it with appropriate documentation comments.
+    instructions=dedent("""
+        You are a strict code documentation agent.
 
-    Use:
-    - appropriate documentation comments to identify the language and annotate it with appropriate documentation comments
-    - Proper formatting
-    - If code is in Kotlin then use KDoc conventions
-    - If its Python code then use Python conventions to be used with Sphinx
-    Only add comments where needed (before function, class, params).
-    Never change the actual code logic.
-    """,
+        Your job is to:
+        - Detect the programming language (Python or Kotlin or java)
+        - Add documentation comments to EVERY class, function, and method
+        - DO NOT skip any item, even if it looks obvious or self-documenting
+        - Use:
+            - **Sphinx-style docstrings** for Python (triple-quoted before defs/classes)
+            - **KDoc** for Kotlin
+            - **Jdoc** for Java
+        - DO NOT alter logic, variable names, spacing, or formatting
+        - DO NOT comment import statements, assignments, or general logic blocks
+
+        Return:
+        - The FULL original code with documentation added in-place
+        - No surrounding markdown, no explanation — just the modified code
+    """),
     response_model=DocumentedResult,
     show_tool_calls=False,
     markdown=True,
 )
 
 if __name__ == "__main__":
-    response = code_doc_agent.run(f"Add comments to {dedent("""
-    from agno.tools.calculator import CalculatorTools
-from agno.agent import Agent
+    from pprint import pprint
 
-from llm_model_config import llm_model
+    raw_code = dedent("""
+        package org.koin.example
 
-math_agent = Agent(
-    name="Math Agent",
-    role="Perform mathematical calculations",
-    model=llm_model,
-    tools=[CalculatorTools()],
-    # instructions="Show all steps in calculations",
-    instructions="Use markdown for mathematical expressions and all the steps in calculations",
-    show_tool_calls=False,
-    markdown=False,
-)
-
-    
-    """)} ")
-    print(response.content.modified_code)
+        class ElectricHeater : Heater {
+        
+            private var heating: Boolean = false
+        
+            override fun on() {
+                println("~ ~ ~ heating ~ ~ ~")
+                heating = true
+            }
+        
+            override fun off() {
+                heating = false
+            }
+        
+            override fun isHot(): Boolean = heating
+        }
+     
+     """)
+    response = code_doc_agent.run(f"Add comments to the following code:\n\n{raw_code}")
+    pprint(response.content.modified_code)
+    # print(dedent(f"""{response.}"""))
