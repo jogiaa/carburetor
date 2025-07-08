@@ -6,7 +6,7 @@ from agno.workflow import Workflow
 from poc_agno.agents.code_documenter import code_doc_agent, DocumentedResult
 
 
-class FileProcessingWorkflow(Workflow):
+class SimpleDocumentationWorkflow(Workflow):
     description: str = "Sequential file processing workflow: read → capitalize → save"
 
     def run(self, source_file_path: str, destination_file_path: str) -> RunResponse:
@@ -76,7 +76,7 @@ class FileProcessingWorkflow(Workflow):
 
 if __name__ == "__main__":
     # Create the workflow
-    workflow = FileProcessingWorkflow()
+    workflow = SimpleDocumentationWorkflow()
 
     # Example file paths
     source_path = "test.py"

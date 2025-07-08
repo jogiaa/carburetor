@@ -10,7 +10,7 @@ from poc_agno.memory.chroma_code_context import get_all_summaries
 from poc_agno.tools.another_file_reader import AnotherFileProcessor, FileError, FileDetails, FileResult
 
 
-class FileProcessingWorkflow(Workflow):
+class SummarizedDocumentationWorkflow(Workflow):
     description: str = "Sequential file processing workflow: read → document → save"
 
     def run(self, source_file_path: str, destination_file_path: str) -> RunResponse:
@@ -116,7 +116,7 @@ class FileProcessingWorkflow(Workflow):
 
 if __name__ == "__main__":
     # Create the workflow
-    workflow = FileProcessingWorkflow()
+    workflow = SummarizedDocumentationWorkflow()
 
     # Example file paths
     source = "koin/examples/coffee-maker/src/main/kotlin/org/koin/example/two"
