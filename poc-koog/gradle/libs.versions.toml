@@ -3,9 +3,16 @@
 
 [versions]
 junit-jupiter-engine = "5.12.1"
+kotlinx-serialization = "1.8.1"
+kotlin = "2.1.20"
+koog = "0.2.1"
 
 [libraries]
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit-jupiter-engine" }
+koog-agents = { module = "ai.koog:koog-agents", version.ref = "koog" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 
 [plugins]
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.1.20" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+build-config = { id = "com.github.gmazzo.buildconfig", version = "5.6.7" }
