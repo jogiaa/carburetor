@@ -207,3 +207,5 @@ marimo/_lsp/
 __marimo__/
 ideas_and_roadmap.md
 local.properties
+# chroma
+chroma
