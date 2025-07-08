@@ -9,7 +9,7 @@ from poc_agno.tools.another_file_reader import AnotherFileProcessor, FileError, 
 
 
 class FileProcessingWorkflow(Workflow):
-    description: str = "Sequential file processing workflow: read → capitalize → save"
+    description: str = "Sequential file processing workflow: read → document → save"
 
     def run(self, source_file_path: str, destination_file_path: str) -> RunResponse:
         """
@@ -40,10 +40,10 @@ class FileProcessingWorkflow(Workflow):
 
         for streamed_file in file_processor.stream_files():
             if isinstance(streamed_file, FileError):
-                files_with_errors.append(streamed_file)
+                files_with_errors.append(streamed_file.path)
                 continue
 
-            logger.info(f"✅ File read successfully. content: {streamed_file} type: {type(streamed_file)}")
+            logger.info(f"✅ File read successfully. content: {streamed_file.path} ")
             org_file_content = streamed_file.content
 
             # Step 2: Add comments the content
@@ -52,13 +52,13 @@ class FileProcessingWorkflow(Workflow):
             comment_response = code_doc_agent.run(org_file_content)
 
             if not comment_response.content or not isinstance(comment_response.content, DocumentedResult):
-                files_with_errors.append(streamed_file)
+                files_with_errors.append(streamed_file.path)
                 continue
 
             comment_result = comment_response.content
 
             if not comment_result.modified_code:
-                files_with_errors.append(streamed_file)
+                files_with_errors.append(streamed_file.path)
                 continue
 
             logger.info(f"✅ Comments added.")
@@ -76,9 +76,10 @@ class FileProcessingWorkflow(Workflow):
             if not isinstance(save_response, FileResult):
                 files_with_errors.append(save_response)
                 continue
-            logger.info(f"✅ File saved successfully to {save_response}")
 
-            files_modified.append(streamed_file)
+            logger.info(f"✅ File saved successfully")
+
+            files_modified.append(streamed_file.path)
 
         # Return a summary of the entire workflow
         return RunResponse(
