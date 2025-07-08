@@ -25,12 +25,12 @@ Extract the provided code in a folder.The directory structure should be
         
 Run the following command within the folder to setup the python ‘virtual environment’.
 ```bash
-python3 -m venv poc_agno/venv
+python3 -m venv venv
 ```
 
 From the same folder run the following command to activate the virtual environment.
 ```bash
-source poc_agno/venv/bin/activate
+source venv/bin/activate
 ```
 
 After activating the virtual environment use the python package manager (pip) to install all dependencies.
