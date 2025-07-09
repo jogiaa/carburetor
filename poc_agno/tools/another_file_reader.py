@@ -33,7 +33,7 @@ class AnotherFileProcessor:
         self.source = Path(source_str).resolve()
         self.destination = Path(dest_str).resolve() if dest_str else None
         self.file_filter = file_filter if file_filter is not None else ["*.sh", "*.gradle", "temp/*", "*~" , "*.DS_Store"]
-        self.ignored_directories = ignored_directories if ignored_directories is not None else ["venv", "tests", ".git"]
+        self.ignored_directories = ignored_directories if ignored_directories is not None else ["venv", "test", ".git"]
         self.overwrite = overwrite
 
     def _is_ignored(self, path: Path) -> bool:

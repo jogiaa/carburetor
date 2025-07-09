@@ -1,3 +1,3 @@
-from workflows.scribe_workflow import SimpleDocumentationWorkflow
-from workflows.summarizer_workflow import SummarizerWorkflow
-from workflows.summarized_scribe_workflow import SummarizedDocumentationWorkflow
+from .workflows.single_file_documentation_workflow import SingleFileDocumentationWorkflow
+from .workflows.summarizer_workflow import SummarizerWorkflow
+from .workflows.documentation_using_external_summary_workflow import SummarizedDocumentationWorkflow

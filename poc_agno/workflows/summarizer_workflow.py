@@ -90,8 +90,7 @@ if __name__ == "__main__":
     workflow = SummarizerWorkflow()
 
     # Example file paths
-    source = "koin/examples/coffee-maker/src/main/kotlin/org/koin/example/two"
-    destination = "koin/examples/coffee-maker-two/src/main/kotlin/org/koin/example/two"
+    source = "koin/examples/coffee-maker/"
 
     # Run the workflow
     result = workflow.run(source_file_path=source)
