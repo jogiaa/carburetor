@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import chromadb
 from chromadb.config import Settings
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
@@ -42,3 +44,8 @@ def get_project_context(file_path: str, top_k: int = 5) -> str:
         where={"doc_type": "summary"},
     )
     return "\n".join(results["documents"][0]) if results["documents"] else ""
+
+
+
+if __name__ == "__main__":
+    pprint(get_all_summaries())

@@ -89,7 +89,7 @@ class DocumentationWorkflow(Workflow):
                     "destination_file_path": destination_file_path,
                     "files_modified": files_modified,
                     "files_without_comments": files_without_comments,
-                    "files_without_errors": files_with_errors,
+                    "files_with_errors": files_with_errors,
                     "work_flow_finished": True
                 }
             }

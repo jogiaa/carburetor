@@ -5,7 +5,6 @@ from agno.run.response import RunResponse
 from agno.utils.log import logger
 from agno.workflow import Workflow
 
-from poc_agno.agents.code_documenter import code_doc_agent, DocumentedResult
 from poc_agno.agents.code_summary_agent import code_summary_agent
 from poc_agno.memory.chroma_code_context import summary_collection, store_result
 from poc_agno.tools.another_file_reader import AnotherFileProcessor, FileError, FileDetails, FileResult

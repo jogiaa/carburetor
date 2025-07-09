@@ -27,11 +27,13 @@ class AnotherFileProcessor:
             source_str: str,
             dest_str: Optional[str] = None,
             file_filter: Optional[List[str]] = None,
+            ignored_directories: Optional[List[str]] = None,
             overwrite: bool = True
     ):
         self.source = Path(source_str).resolve()
         self.destination = Path(dest_str).resolve() if dest_str else None
-        self.file_filter = file_filter or []
+        self.file_filter = file_filter if file_filter is not None else ["*.sh", "*.gradle", "temp/*", "*~" , "*.DS_Store"]
+        self.ignored_directories = ignored_directories if ignored_directories is not None else ["venv", "tests", ".git"]
         self.overwrite = overwrite
 
     def _is_ignored(self, path: Path) -> bool:
@@ -59,14 +61,13 @@ class AnotherFileProcessor:
         else:
             yield FileError(path=str(self.source.absolute()), error=FileNotFoundError(f"Source <<not>> found"))
 
-
     def _read_file(self, file: Path) -> FileResult:
         print(f"📖 Reading: {file}")
         try:
             content = file.read_text(encoding='utf-8')
             return FileDetails(path=str(file), size=file.stat().st_size, content=content)
         except Exception as e:
-            return FileError(path=str(file),error=e)
+            return FileError(path=str(file), error=e)
 
     def save_file(self, result: FileDetails) -> FileResult:
         print(f"📝 Saving: {result.path}")
@@ -93,7 +94,7 @@ class AnotherFileProcessor:
             target.write_text(result.content, encoding='utf-8')
             return FileResult()
         except Exception as e:
-            return FileError(path= str("target"), error=e)
+            return FileError(path=str("target"), error=e)
 
 
 def main():
@@ -103,7 +104,6 @@ def main():
     processor = AnotherFileProcessor(
         source_str=source,
         dest_str=destination,
-        file_filter=["*.sh", "*.gradle", "temp/*", "*~"],
         overwrite=True
     )
 

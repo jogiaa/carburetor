@@ -57,15 +57,15 @@ class SummarizedDocumentationWorkflow(Workflow):
             # Step 2: Add comments the content
             logger.info("Step 2: Adding comments...")
             doc_prompt = dedent(f"""
-                    Contextual summary so far: \n\n
+                    Based on the **Contextual summary** : \n\n
                     {summary}
                     \n\n
-                    Here is a new code file:\n\n
+                    Add comments to the code:\n\n
                     
                     {org_file_content}
                   
             """)
-            pprint(doc_prompt)
+            # pprint(doc_prompt)
 
             comment_response = code_doc_agent.run(doc_prompt)
 
