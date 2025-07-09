@@ -1,0 +1,4 @@
+flask
+# transitive dependency for SummarizedDocumentationWorkflow - chroma has an inherent dependency on this package
+# TODO figure out how to handle transitive dependencies
+sentence_transformers
