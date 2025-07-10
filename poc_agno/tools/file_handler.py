@@ -84,8 +84,8 @@ class OneFileProcessor:
 
 # --- Command-line Interface ---
 if __name__ == "__main__":
-    source = "/Users/asim/Documents/DEV/koin/examples/coffee-maker"
-    destination = "/Users/asim/Documents/DEV/koin/examples/coffee-maker-two"
+    source = "koin/examples/coffee-maker"
+    destination = "koin/examples/coffee-maker-two"
     processor = OneFileProcessor(source, destination)
     results = processor.process()
 
