@@ -1,16 +1,21 @@
 from pprint import pprint
 from textwrap import dedent
+from typing import Optional
 
 from agno.run.response import RunResponse
-from agno.utils.log import logger
 from agno.workflow import Workflow
 
 from poc_agno.agents.code_documenter import code_doc_agent, DocumentedResult
 from poc_agno.memory.chroma_code_context import get_all_summaries
 from poc_agno.tools.another_file_reader import AnotherFileProcessor, FileError, FileDetails, FileResult
+from poc_agno.utils import Logger, get_builtin_logger
 
 
 class SummarizedDocumentationWorkflow(Workflow):
+    def __init__(self, logger: Optional[Logger] = None):
+        super().__init__()
+        self.logger = logger if logger is not None else get_builtin_logger()
+
     description: str = "Sequential file processing workflow: read → document → save"
 
     def run(self, source_file_path: str, destination_file_path: str) -> RunResponse:
@@ -33,29 +38,30 @@ class SummarizedDocumentationWorkflow(Workflow):
         files_without_comments = []
         files_with_errors = []
 
-        logger.info(f"Starting file processing workflow")
-        logger.info(f"Source: {source_file_path}")
-        logger.info(f"Destination: {destination_file_path}")
+        self.logger.debug(f"Starting documentation workflow")
+        self.logger.info(f"Source: {source_file_path}")
+        self.logger.info(f"Destination: {destination_file_path}")
+
         file_processor = AnotherFileProcessor(
+            logger=self.logger,
             source_str=source_file_path,
             dest_str=destination_file_path
         )
-        logger.info(f"Reading summaries...")
+        self.logger.debug(f"Reading summaries...")
         summary = get_all_summaries()
         # pprint(summary)
         # Step 1: Read the file
-        logger.info("Step 1: Reading source file...")
+        self.logger.debug("Step 1: Reading source file...")
 
         for streamed_file in file_processor.stream_files():
             if isinstance(streamed_file, FileError):
                 files_with_errors.append(streamed_file.path)
                 continue
 
-            logger.info(f"✅ File read successfully. content: {streamed_file.path} ")
             org_file_content = streamed_file.content
 
             # Step 2: Add comments the content
-            logger.info("Step 2: Adding comments...")
+            self.logger.info("Step 2: Adding comments...")
             doc_prompt = dedent(f"""
                     Based on the **Contextual summary** : \n\n
                     {summary}
@@ -79,10 +85,10 @@ class SummarizedDocumentationWorkflow(Workflow):
                 files_with_errors.append(streamed_file.path)
                 continue
 
-            logger.info(f"✅ Comments added.")
+            self.logger.debug(f"✅ Comments added.")
 
             # Step 3: Save the capitalized content
-            logger.info("Step 3: Saving to destination file...")
+            self.logger.debug("Step 3: Saving to destination file...")
 
             save_file_details = FileDetails(
                 path=streamed_file.path,
@@ -95,7 +101,7 @@ class SummarizedDocumentationWorkflow(Workflow):
                 files_with_errors.append(save_response)
                 continue
 
-            logger.info(f"✅ File saved successfully")
+            self.logger.info(f"✅ File saved successfully")
 
             files_modified.append(streamed_file.path)
 
