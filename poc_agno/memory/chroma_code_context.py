@@ -1,12 +1,14 @@
+from pathlib import Path
 from pprint import pprint
 
 import chromadb
-from chromadb.config import Settings
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 embedding_fn = SentenceTransformerEmbeddingFunction("all-MiniLM-L6-v2")
 chroma_client = client = chromadb.PersistentClient(
-    path="~/PycharmProjects/carburetor/chroma",
+    path=PROJECT_ROOT / "chroma",
 )
 
 
