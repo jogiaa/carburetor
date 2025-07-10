@@ -100,8 +100,8 @@ class AsyncFileProcessor:
 
 
 async def main():
-    source = "/Users/asim/Documents/DEV/koin/examples/coffee-maker/src/main/kotlin/org/koin/example/CoffeeApp.kt"
-    destination = "/Users/asim/Documents/DEV/koin/examples/coffee-maker/src/main/kotlin/org/koin/example/CoffeeApp2.kt"
+    source = "koin/examples/coffee-maker/src/main/kotlin/org/koin/example/CoffeeApp.kt"
+    destination = "koin/examples/coffee-maker/src/main/kotlin/org/koin/example/CoffeeApp2.kt"
     processor = AsyncFileProcessor(
         source_str=source,
         dest_str=destination,
