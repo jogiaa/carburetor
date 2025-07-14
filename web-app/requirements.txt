@@ -1,4 +1,6 @@
+# Install all dependencies for poc_agno
+-r ../poc_agno/requirements.txt
+
 flask
-# transitive dependency for SummarizedDocumentationWorkflow - chroma has an inherent dependency on this package
-# TODO figure out how to handle transitive dependencies
-sentence_transformers
+# support for web-socket
+flask-socketio
