@@ -1,3 +1,4 @@
+from pathlib import Path
 from pprint import pprint
 from string import Template
 from typing import Optional
@@ -16,10 +17,9 @@ class SummarizerWorkflow(Workflow):
         super().__init__()
         self.logger = logger if logger is not None else get_builtin_logger()
         self.prompt_template = Template("""
-                Current summary so far: $current_summary \n\n
-                Update the summary to include the following file: $file_path \n\n 
-                With content
-                ```
+                Context: $current_summary \n\n
+                Code\n\n 
+                ```kotlin
                 $content_code
                 ```
         """)
@@ -52,7 +52,6 @@ class SummarizerWorkflow(Workflow):
 
             prompt = self.prompt_template.substitute(
                 current_summary=self._contextual_summary,
-                file_path=streamed_file.path,
                 content_code=org_file_content
             )
 
@@ -65,7 +64,7 @@ class SummarizerWorkflow(Workflow):
 
             self._contextual_summary = self._contextual_summary + response.content
             # print("*********************")
-            # print(response.content)
+            pprint(response.content)
             # print("---------")
             # print(streamed_file.path)
             # print("*********************")
@@ -91,11 +90,15 @@ class SummarizerWorkflow(Workflow):
 
 if __name__ == "__main__":
     # Create the workflow
-    workflow = SummarizerWorkflow()
+    workflow = SummarizerWorkflow(logger=get_builtin_logger())
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+    print(PROJECT_ROOT)
 
     # Example file paths
-    source = "koin/examples/coffee-maker"
+    source = "SampleCode/sample-lib/src/main/java/org/jay/sample"
 
+    source_path = str(Path(PROJECT_ROOT / source).absolute())
+    print(source_path)
     # Run the workflow
-    result = workflow.run(source_file_path=source)
+    result = workflow.run(source_file_path=source_path)
     pprint(result)

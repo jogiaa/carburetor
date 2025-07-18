@@ -1,4 +1,5 @@
 from json import dumps
+from pathlib import Path
 from pprint import pprint
 from typing import Optional
 
@@ -48,9 +49,14 @@ if __name__ == "__main__":
     # Create the workflow
     workflow = CombinedSummarizedDocumentationWorkflow()
 
-    source = "koin/examples/coffee-maker"
-    destination = "koin/examples/coffee-maker-com-sum"
+    PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+    source = "SampleCode/sample-lib"
+    source_path = str(Path(PROJECT_ROOT / source).absolute())
+
+    # Example file paths
+    destination = "SampleCode/sample-lib-com"
+    destination_path = str(Path(PROJECT_ROOT / destination).absolute())
 
     # Run the workflow
-    result = workflow.run(source_file_path=source, destination_file_path=destination)
+    result = workflow.run(source_file_path=source_path, destination_file_path=destination_path)
     pprint(result.content)
